@@ -149,7 +149,7 @@ public class frmPlanilla extends javax.swing.JFrame {
         int idPlanillaSeleccionada = obtenerIDPlanillaSeleccionada();
 
         frmDetallePlanilla frm = new frmDetallePlanilla();
-        System.out.println("Antes de llar a  FrmDetalle Planilla "+idPlanillaSeleccionada);
+        
         frm.setIdPlanilla(idPlanillaSeleccionada);
         frm.cargarDetallePlanilla();
         frm.setVisible(true);

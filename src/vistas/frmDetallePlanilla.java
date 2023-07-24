@@ -112,7 +112,7 @@ public class frmDetallePlanilla extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 public void setIdPlanilla(int idPlanilla) {
-        System.out.println("Desde el metodo id Planilla " + idPlanilla);
+   
         this.idPlanilla = idPlanilla;
     }
 
@@ -129,7 +129,7 @@ public void setIdPlanilla(int idPlanilla) {
         modeloDetalle.setRowCount(0); // Limpiar el contenido actual de la tabla jtPlanilla
 
         MostrarDetallePlanilla obj_detalle_planilla = new MostrarDetallePlanilla();
-        System.out.println("Desde el metodo cargarDetallePlanilla " + idPlanilla);
+      
         ArrayList<MostrarDetallePlanilla> lista_detalle = obj_detalle_planilla.mostrar_detalle_planillas(this.idPlanilla);
 
         for (MostrarDetallePlanilla detalle : lista_detalle) {
