@@ -67,7 +67,7 @@ public class frmUsuario extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtUsuarios = new javax.swing.JTable();
         btnCargar = new javax.swing.JButton();
 
         jScrollPane3.setViewportView(jTextPane1);
@@ -236,7 +236,7 @@ public class frmUsuario extends javax.swing.JFrame {
                         .addComponent(btnEliminar)
                         .addGap(21, 21, 21)
                         .addComponent(btnSalir)
-                        .addGap(0, 33, Short.MAX_VALUE))
+                        .addGap(0, 75, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -262,15 +262,15 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Datos Usuario", jPanel1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Usuario", "Password", "Nombre", "Correo", "Estado"
+                "Cedula", "UserID", "Contraseña", "Nombre", "Apellido", "Direccion", "Fecha Registro"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtUsuarios);
 
         btnCargar.setText("Cargar");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -283,10 +283,10 @@ public class frmUsuario extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnCargar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +298,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addContainerGap(304, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Planilla", jPanel2);
+        jTabbedPane1.addTab("Usuarios", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,8 +306,8 @@ public class frmUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,20 +403,25 @@ public class frmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        /*DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        //Borrar
-        int cantidad = modelo.getRowCount();
-        while (cantidad > 0) {
-            modelo.removeRow(0);
-            cantidad = modelo.getRowCount();
-        }
+        DefaultTableModel modelo = (DefaultTableModel) jtUsuarios.getModel();
+
+        modelo.setRowCount(0);
+        DefaultTableModel modeloDetalle = (DefaultTableModel) jtUsuarios.getModel();
+        modeloDetalle.setRowCount(0); // Limpiar el contenido actual de la tabla jtPlanilla
         Usuario obj_usuario = new Usuario();
-        ArrayList<Usuario> lista = new ArrayList<Usuario>();
-        lista = obj_usuario.mostrar_todos();
-        for (Usuario lista1 : lista) {
-            String[] arreglo = {lista1.getUsuario(), lista1.getPassword(), lista1.getNombre(), lista1.getCorreo(), String.valueOf(lista1.getEstado())};
-            modelo.addRow(arreglo);
-        }*/
+        ArrayList<Usuario> lista_usuarios = obj_usuario.mostrar_usuarios();
+            for (Usuario usuario : lista_usuarios) {
+                // Agregar una nueva fila a la tabla con los datos del usuario
+                modelo.addRow(new Object[]{
+                    usuario.getCedula(),
+                    usuario.getUsuario(),
+                    usuario.getNombre(),
+                    usuario.getApellido(),
+                    usuario.getCorreo(),
+                    usuario.getDireccion(),
+                    usuario.getFecha_creacion(),});
+            }
+         
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -562,8 +567,8 @@ public class frmUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTable jtUsuarios;
     private javax.swing.JLabel lbApellido;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBusqueda;
