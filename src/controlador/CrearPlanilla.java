@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author dbpan
@@ -17,6 +16,7 @@ public class CrearPlanilla {
 
     private String cedula;
     private String fecha_creacion;
+
     //AdicionEmpleadoPlanilla obj = new AdicionEmpleadoPlanilla();
     public CrearPlanilla() {
     }
@@ -42,9 +42,8 @@ public class CrearPlanilla {
         this.fecha_creacion = fecha_creacion;
     }
 
-    
     public int insertar() {
-     
+
         try {
             PreparedStatement ps = Conexion.getConnection().prepareStatement("CALL sp_insert_tbl_planilla(?, ?)");
             ps.setString(1, this.cedula);
@@ -54,7 +53,7 @@ public class CrearPlanilla {
             if (rs.next()) {
                 int id_planilla = rs.getInt("respuesta"); // Obtener el valor de id_planilla desde el ResultSet
                 //System.out.println("ID de la planilla generada: " + id_planilla);
-            
+
                 return id_planilla;
             } else {
                 return 0; // Si no hay resultados en el ResultSet, devuelve 0 o algún otro valor predeterminado.
@@ -64,9 +63,8 @@ public class CrearPlanilla {
             return 0; // En caso de excepción, también se puede devolver 0 o algún otro valor predeterminado.
         }
     }
-    
-   
- /*public int insertar() {
+
+    /*public int insertar() {
     try {
         PreparedStatement ps = Conexion.getConnection().prepareStatement("CALL sp_insert_tbl_planilla(?, ?)");
         ps.setString(1, this.cedula);
@@ -84,13 +82,9 @@ public class CrearPlanilla {
         return 0;
     }
 }
-*/
-
+     */
     public int obtenerIdPlanilla() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-
-
 
 }

@@ -61,6 +61,11 @@ public class frmPlanilla extends javax.swing.JFrame {
         });
 
         btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,25 +118,54 @@ public class frmPlanilla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void jtPlanillaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jtPlanillaPropertyChange
-        DefaultTableModel modelo = (DefaultTableModel)jtPlanilla.getModel();
-        
+        DefaultTableModel modelo = (DefaultTableModel) jtPlanilla.getModel();
+
         //Borrar datos
-        
         int cantidad = modelo.getRowCount();
-        while (cantidad>0){
+        while (cantidad > 0) {
             modelo.removeRow(0);
             cantidad = modelo.getRowCount();
         }
-         MostrarPlanilla obj_planilla = new MostrarPlanilla();
+        MostrarPlanilla obj_planilla = new MostrarPlanilla();
         ArrayList<MostrarPlanilla> lista = new ArrayList<MostrarPlanilla>();
         lista = obj_planilla.mostrar_planillas();
-        
-          for (MostrarPlanilla lista1 : lista) {
-            String []arreglo = {String.valueOf(lista1.getId_planilla()), lista1.getFecha_creacion()};
+
+        for (MostrarPlanilla lista1 : lista) {
+            //String []arreglo = {String.valueOf(lista1.getId_planilla()),lista1.getFecha_creacion(),lista1.String.valueOf(getTotal_empleados()),lista1.String.valueOf(getTotal_salario_bruto()),String.valueOf(getTotal_salario_neto())};
+            String[] arreglo = {
+                String.valueOf(lista1.getId_planilla()),
+                lista1.getFecha_creacion(),
+                String.valueOf(lista1.getTotal_salario_bruto()),
+                String.valueOf(lista1.getTotal_seguro_social()),
+                String.valueOf(lista1.getTotal_empleados()),
+                String.valueOf(lista1.getTotal_salario_neto())
+            };
             modelo.addRow(arreglo);
         }
-        
+
     }//GEN-LAST:event_jtPlanillaPropertyChange
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        int idPlanillaSeleccionada = obtenerIDPlanillaSeleccionada();
+
+        frmDetallePlanilla frm = new frmDetallePlanilla();
+        System.out.println("Antes de llar a  FrmDetalle Planilla "+idPlanillaSeleccionada);
+        frm.setIdPlanilla(idPlanillaSeleccionada);
+        frm.cargarDetallePlanilla();
+        frm.setVisible(true);
+        frm.setTitle("Detalle Planilla");
+    }//GEN-LAST:event_btnVerActionPerformed
+    
+    
+    private int obtenerIDPlanillaSeleccionada() {
+        int idPlanillaSeleccionada = -1; // Valor por defecto en caso de que no se seleccione ninguna fila
+        int filaSeleccionada = jtPlanilla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) jtPlanilla.getModel();
+            idPlanillaSeleccionada = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 0).toString());
+        } 
+        return idPlanillaSeleccionada; // Retorna el valor del campo "ID Planilla" o -1 si no se seleccionó ninguna fila
+    }
 
     /**
      * @param args the command line arguments
